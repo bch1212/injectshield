@@ -407,6 +407,18 @@ app.post("/webhooks/stripe", async (c) => {
   return c.text("ignored", 200);
 });
 
+// Admin: peek at the most recent api_key for an email. Guarded by ADMIN_TOKEN.
+// Used for autonomous smoke-tests after deploy, never exposed to users.
+app.get("/admin/key-for", async (c) => {
+  if (!env.ADMIN_TOKEN || c.req.header("x-admin-token") !== env.ADMIN_TOKEN) {
+    return c.json({ error: { code: "forbidden", message: "admin only" }}, 403);
+  }
+  const email = (c.req.query("email") || "").toLowerCase();
+  if (!email) return c.json({ error: { code: "bad_email", message: "email query required" }}, 400);
+  const keys = await keysForEmail(pool, email);
+  return c.json({ email, count: keys.length, latest: keys[keys.length - 1] || null });
+});
+
 // --- bootstrap ---
 (async () => {
   await migrate(pool);
