@@ -1,0 +1,19 @@
+# Cache controls — prevent the 4-hour Pages default from blocking deploy fixes.
+/js/*
+  Cache-Control: public, max-age=60, must-revalidate
+/css/*
+  Cache-Control: public, max-age=60, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/docs
+  Cache-Control: public, max-age=0, must-revalidate
+/pricing
+  Cache-Control: public, max-age=0, must-revalidate
+/privacy
+  Cache-Control: public, max-age=0, must-revalidate
+/terms
+  Cache-Control: public, max-age=0, must-revalidate
+/success
+  Cache-Control: public, max-age=0, must-revalidate

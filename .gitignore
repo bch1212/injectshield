@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+.env.*
+.deploy-secrets.env
+.stripe-prices.env
+.railway-deploy.json
+*.log
+.DS_Store
+_dbg.mjs

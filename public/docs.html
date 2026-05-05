@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PromptShield Docs</title>
+<link rel="stylesheet" href="/css/style.css?v=__VERSION__">
+<style>
+  .doc { max-width: 860px; }
+  .doc h2 { margin-top: 32px; }
+  .doc table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  .doc th, .doc td { padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: left; font-size: 14px; }
+  .doc pre { background: #04060c; padding: 14px; border-radius: 8px; overflow-x: auto; font-size: 13px; }
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="/"><span class="logo">▮▯</span> PromptShield</a>
+  <nav>
+    <a href="/#demo">Demo</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/docs">Docs</a>
+    <a href="https://github.com/bch1212/promptshield">GitHub</a>
+  </nav>
+</header>
+
+<section class="doc">
+  <h1>API Reference</h1>
+  <p class="muted">Base URL: <code class="api-base">https://api.promptshield.dev</code></p>
+
+  <h2>Authentication</h2>
+  <p>Pass your API key as a bearer token:</p>
+  <pre><code>Authorization: Bearer ps_live_…</code></pre>
+  <p>Or via header: <code>X-API-Key: ps_live_…</code>.</p>
+
+  <h2>POST /v1/scan</h2>
+  <p>Returns a verdict and (optionally) a sanitized version of the input.</p>
+  <h3>Request body</h3>
+  <table>
+    <tr><th>Field</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    <tr><td><code>text</code></td><td>string</td><td>—</td><td>≤ 100,000 chars. Required.</td></tr>
+    <tr><td><code>context</code></td><td>enum</td><td>"unknown"</td><td>git_commit · web_content · user_input · file_content · email · tool_output</td></tr>
+    <tr><td><code>options.sensitivity</code></td><td>enum</td><td>"medium"</td><td>low · medium · high — threshold tuning</td></tr>
+    <tr><td><code>options.return_cleaned</code></td><td>bool</td><td>true</td><td>Return sanitized text with matches replaced.</td></tr>
+  </table>
+  <h3>Response</h3>
+<pre><code>{
+  "safe": false,
+  "confidence": 0.94,
+  "threat_type": "instruction_injection",
+  "patterns_matched": ["ignore-previous", "system-tag-injection"],
+  "cleaned_text": "[REDACTED:instruction_injection]",
+  "semantic_score": 0.91,
+  "semantic_label": "negative",
+  "notes": [],
+  "request_id": "req_abc123…"
+}</code></pre>
+
+  <h2>POST /v1/keys (signup)</h2>
+  <p>Public, throttled to 5 signups/IP/day. Sends an API key to the supplied email.</p>
+<pre><code>curl -X POST <span class="api-base">https://api.promptshield.dev</span>/v1/keys \
+  -H "Content-Type: application/json" \
+  -d '{"email":"you@company.com"}'</code></pre>
+
+  <h2>GET /v1/keys/me</h2>
+  <p>Returns the email, tier, and monthly usage for the bearer key.</p>
+
+  <h2>GET /v1/usage</h2>
+  <p>Returns current-month request count + blocked count for the bearer key.</p>
+
+  <h2>POST /v1/checkout</h2>
+  <p>Creates a Stripe Checkout Session. Body: <code>{tier:"hobby"|"team"|"pro", email}</code>. Returns <code>{url}</code>.</p>
+
+  <h2>POST /v1/demo</h2>
+  <p>Public, IP-throttled. Same shape as <code>/v1/scan</code> minus auth and usage logging. Useful for the live demo on the landing page; not intended for production traffic.</p>
+
+  <h2>Threat categories</h2>
+  <ul>
+    <li><code>instruction_injection</code> — "ignore previous instructions" and variants</li>
+    <li><code>system_override</code> — system-prompt leak attempts, role-tag forgery, ChatML/Llama special tokens</li>
+    <li><code>role_hijack</code> — "you are now…", DAN/Developer-Mode personas</li>
+    <li><code>exfiltration</code> — request to send data to external URL or markdown image with query string</li>
+    <li><code>schema_attack</code> — references to known attack schemas (e.g. OpenClaw)</li>
+    <li><code>encoding_smuggle</code> — base64-decoded directive smuggling</li>
+    <li><code>invisible_text</code> — zero-width / bidi / Unicode-Tag smuggling</li>
+    <li><code>tool_abuse</code> — synthetic tool/function-call directives in untrusted text</li>
+    <li><code>jailbreak_classic</code> — DAN, "no restrictions", etc.</li>
+  </ul>
+
+  <h2>Limits + errors</h2>
+  <table>
+    <tr><th>Status</th><th>Code</th><th>Meaning</th></tr>
+    <tr><td>400</td><td>bad_json / missing_text / bad_email</td><td>Malformed request</td></tr>
+    <tr><td>401</td><td>missing_api_key / invalid_api_key</td><td>Auth failed</td></tr>
+    <tr><td>402</td><td>monthly_limit</td><td>Plan quota exhausted — upgrade</td></tr>
+    <tr><td>413</td><td>text_too_large</td><td>Text > 100K chars</td></tr>
+    <tr><td>429</td><td>rate_limited / signup_throttled / demo_rate</td><td>Backoff and retry</td></tr>
+  </table>
+
+  <h2>Defense in depth</h2>
+  <p>PromptShield is one layer of a defense-in-depth strategy. Pair it with:
+  prompt-template constraints, tool argument validation, output filtering,
+  and least-privilege agent permissions. We will <em>not</em> claim 100%
+  detection — that's mathematically impossible.</p>
+</section>
+
+<footer>
+  <p>© 2026 PromptShield · <a href="/">Home</a> · <a href="https://github.com/bch1212/promptshield">GitHub</a></p>
+</footer>
+<script>document.querySelectorAll(".api-base").forEach(el => el.textContent = "https://api.promptshield.dev")</script>
+</body>
+</html>

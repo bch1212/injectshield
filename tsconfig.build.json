@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "outDir": "dist",
+    "rootDir": ".",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": false,
+    "noEmit": false,
+    "allowImportingTsExtensions": false
+  },
+  "include": ["server/**/*.ts", "src/detect.ts", "src/patterns.ts"],
+  "exclude": ["src/index.ts", "src/auth.ts", "src/usage.ts", "src/email.ts", "src/stripe.ts", "test/**", "node_modules"]
+}

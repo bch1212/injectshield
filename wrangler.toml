@@ -1,0 +1,39 @@
+name = "promptshield"
+main = "src/index.ts"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Free Workers route at promptshield.<account>.workers.dev — custom domains added post-deploy.
+workers_dev = true
+
+[vars]
+ENVIRONMENT = "production"
+PUBLIC_BASE_URL = "https://promptshield.pages.dev"
+API_BASE_URL = "https://promptshield.<workers-subdomain>.workers.dev"
+FREE_TIER_MONTHLY_REQUESTS = "10000"
+HOBBY_TIER_MONTHLY_REQUESTS = "500000"
+TEAM_TIER_MONTHLY_REQUESTS = "5000000"
+PRO_TIER_MONTHLY_REQUESTS = "100000000"
+SIGNUP_FROM_EMAIL = "noreply@halversonco.com"
+SIGNUP_FROM_NAME = "PromptShield"
+ADMIN_EMAIL = "brett.halverson@gmail.com"
+ALERT_THRESHOLD = "0.8"
+
+# KV namespaces — created by scripts/bootstrap.sh and IDs swapped in.
+[[kv_namespaces]]
+binding = "KEYS"
+id = "REPLACE_ME_KV_KEYS"
+
+[[kv_namespaces]]
+binding = "RATE"
+id = "REPLACE_ME_KV_RATE"
+
+# D1 database for audit log + monthly usage rollups.
+[[d1_databases]]
+binding = "DB"
+database_name = "promptshield"
+database_id = "REPLACE_ME_D1_ID"
+
+# Workers AI for the semantic classifier.
+[ai]
+binding = "AI"

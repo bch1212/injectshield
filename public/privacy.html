@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PromptShield Privacy</title><link rel="stylesheet" href="/css/style.css?v=__VERSION__"></head><body>
+<header class="nav"><a class="brand" href="/"><span class="logo">▮▯</span> PromptShield</a></header>
+<section style="max-width:780px">
+<h1>Privacy</h1>
+<p>We log scan events for usage metering and abuse detection. By default we
+store the first 500 characters of submitted text in a private audit log so
+you can review what was flagged.</p>
+<h2>No-logging mode</h2>
+<p>Pro-tier customers may enable <strong>no-logging mode</strong> on a per-key
+basis. When enabled, no input text is stored and no text is used for any
+training, evaluation, or model improvement.</p>
+<h2>What we collect</h2>
+<ul>
+<li>Email address (for key delivery and billing).</li>
+<li>API key + tier metadata (in Cloudflare KV).</li>
+<li>Per-request: timestamp, key, context, confidence, threat type, text length.</li>
+<li>First 500 chars of input text (omitted entirely in no-logging mode).</li>
+</ul>
+<h2>What we do NOT do</h2>
+<ul>
+<li>Sell or share data with third parties.</li>
+<li>Train models on customer text.</li>
+<li>Store text or metadata for keys that have requested deletion (we delete within 7 days of request).</li>
+</ul>
+<p>Questions: <code>brett.halverson@gmail.com</code>.</p>
+</section>
+<footer><p>© 2026 PromptShield · <a href="/">Home</a></p></footer>
+</body></html>
