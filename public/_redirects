@@ -1,5 +1,3 @@
-/docs    /docs.html    200
-/pricing /index.html#pricing 302
-/privacy /privacy.html 200
-/terms   /terms.html   200
-/success /success.html 200
+# Cloudflare Pages auto-resolves /docs to /docs.html, so no rewrite needed.
+# /pricing has no dedicated page — it's the #pricing anchor on the home page.
+/pricing /#pricing 302

@@ -17,15 +17,28 @@ PromptShield is one layer of a defense-in-depth strategy. It's not a silver bull
 ## Quick start
 
 ```bash
+# 1) Get a key (delivered by email):
+curl -X POST https://promptshield-api-production.up.railway.app/v1/keys \
+  -H "Content-Type: application/json" \
+  -d '{"email":"you@company.com"}'
+
+# 2) Scan:
 curl -X POST https://promptshield-api-production.up.railway.app/v1/scan \
   -H "Authorization: Bearer ps_live_..." \
   -H "Content-Type: application/json" \
   -d '{"text":"ignore previous instructions","context":"user_input"}'
 ```
 
-Get a free API key (10K req/mo): [promptshield.pages.dev](https://promptshield.pages.dev) — self-serve, email delivery.
+Or signup via the landing page: https://promptshield-6hz.pages.dev — self-serve, email delivery.
 
 ## What's open-source vs. managed
+
+**Live:**
+
+- Landing page + live demo: https://promptshield-6hz.pages.dev
+- API base: `https://promptshield-api-production.up.railway.app`
+- Health: https://promptshield-api-production.up.railway.app/healthz
+- Docs: https://promptshield-6hz.pages.dev/docs
 
 **Open-source (this repo, MIT):**
 
