@@ -1,6 +1,6 @@
 {
   "name": "@injectshield/mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "MCP server for InjectShield — prompt-injection firewall for AI agents.",
   "license": "MIT",
   "type": "module",
