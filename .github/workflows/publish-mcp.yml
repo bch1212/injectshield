@@ -50,14 +50,13 @@ jobs:
           done
           echo "npm did not index the package within 60s — continuing anyway"
 
-      - name: Get GitHub Actions OIDC token (default audience)
+      - name: Get GitHub Actions OIDC token (registry audience)
         id: oidc
-        # Default audience is the repo URL; the registry validates the issuer
-        # (token_issuer.actions.githubusercontent.com) and the `repository`
-        # claim to scope publishes to io.github.<owner>/<repo>.
+        # The MCP Registry expects the OIDC token to have audience set to its
+        # own URL — confirmed by the 401 'invalid audience' error message.
         run: |
           token=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "$ACTIONS_ID_TOKEN_REQUEST_URL" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=https://registry.modelcontextprotocol.io" \
             | jq -r '.value')
           if [ -z "$token" ] || [ "$token" = "null" ]; then
             echo "Failed to obtain OIDC token"; exit 1
