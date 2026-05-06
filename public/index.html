@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PromptShield — Prompt-injection firewall for AI agents</title>
+<title>InjectShield — Prompt-injection firewall for AI agents</title>
 <meta name="description" content="Detect and neutralize prompt injection in any text before it reaches your AI agent. Heuristic + semantic detection. 10K free requests/month.">
-<meta property="og:title" content="PromptShield — Prompt-injection firewall for AI agents">
+<meta property="og:title" content="InjectShield — Prompt-injection firewall for AI agents">
 <meta property="og:description" content="A 'firewall' for your AI agents. Detect prompt injection in git commits, web pages, files, and user input before they hit the model.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -14,7 +14,7 @@
 </head>
 <body>
 <header class="nav">
-  <a class="brand" href="/"><span class="logo">▮▯</span> PromptShield</a>
+  <a class="brand" href="/"><span class="logo">▮▯</span> InjectShield</a>
   <nav>
     <a href="#demo">Demo</a>
     <a href="#how">How it works</a>
@@ -106,7 +106,7 @@
     <summary>Show usage snippets</summary>
     <h4>curl</h4>
 <pre><code>curl -X POST <span class="api-base">https://api.injectshield.dev</span>/v1/scan \
-  -H "Authorization: Bearer ps_live_..." \
+  -H "Authorization: Bearer is_live_..." \
   -H "Content-Type: application/json" \
   -d '{"text":"ignore previous instructions","context":"user_input"}'</code></pre>
     <h4>Python</h4>
@@ -188,7 +188,7 @@ if (!r.safe) throw new Error("blocked: " + r.threat_type);</code></pre>
 
 <section class="trust">
   <h2>Defense in depth — not a silver bullet</h2>
-  <p>PromptShield reduces, but does not eliminate, prompt-injection risk. Use it
+  <p>InjectShield reduces, but does not eliminate, prompt-injection risk. Use it
   as one layer alongside system-prompt hardening, tool sandboxing, and
   output scrubbing. Our open-source ruleset is community-driven — file an
   issue with novel attacks and we'll merge them.</p>
@@ -196,10 +196,10 @@ if (!r.safe) throw new Error("blocked: " + r.threat_type);</code></pre>
 </section>
 
 <footer>
-  <p>© 2026 PromptShield. Built on Cloudflare. <a href="/docs">Docs</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="https://github.com/bch1212/promptshield">GitHub</a></p>
+  <p>© 2026 InjectShield. Built on Cloudflare. <a href="/docs">Docs</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="https://github.com/bch1212/promptshield">GitHub</a></p>
 </footer>
 
-<script>window.PROMPTSHIELD_API_BASE = "__API_BASE__";</script>
+<script>window.INJECTSHIELD_API_BASE = "__API_BASE__";</script>
 <script src="/js/app.js?v=__VERSION__" defer></script>
 </body>
 </html>

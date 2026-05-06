@@ -9,7 +9,7 @@ import path from "node:path";
 const PAT = process.env.GITHUB_CLASSIC_PAT;
 if (!PAT) { console.error("missing GITHUB_CLASSIC_PAT"); process.exit(1); }
 const OWNER = "bch1212";
-const REPO = "promptshield";
+const REPO = "injectshield";
 const BRANCH = "main";
 
 const ROOT = path.resolve(process.cwd());
@@ -20,6 +20,8 @@ const IGNORE = [
   /^\.stripe-prices\.env$/, /^\.railway-deploy\.json/,
   /\.log$/, /(^|\/)\.DS_Store$/, /^_dbg\.mjs$/,
   /(^|\/)package-lock\.json$/, /^\.git\//,
+  // Skip the legacy MCP directory — superseded by packages/injectshield-mcp.
+  /^packages\/promptshield-mcp\//,
 ];
 
 function shouldIgnore(rel) {

@@ -5,7 +5,7 @@
   "repository": {
     "url": "https://github.com/bch1212/promptshield",
     "source": "github",
-    "subfolder": "packages/promptshield-mcp"
+    "subfolder": "packages/injectshield-mcp"
   },
   "version": "0.1.0",
   "websiteUrl": "https://injectshield.dev",
@@ -13,18 +13,18 @@
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
-      "identifier": "@promptshield/mcp",
+      "identifier": "@injectshield/mcp",
       "version": "0.1.0",
       "transport": { "type": "stdio" },
       "environmentVariables": [
         {
-          "name": "PROMPTSHIELD_API_KEY",
+          "name": "INJECTSHIELD_API_KEY",
           "description": "API key from https://injectshield.dev (free tier: 10K req/mo).",
           "isRequired": true,
           "isSecret": true
         },
         {
-          "name": "PROMPTSHIELD_API_BASE",
+          "name": "INJECTSHIELD_API_BASE",
           "description": "Override the API base URL for self-hosted deployments.",
           "isRequired": false,
           "default": "https://api.injectshield.dev"

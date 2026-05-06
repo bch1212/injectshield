@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Production smoke test for PromptShield.
+# Production smoke test for InjectShield.
 # Hits live Railway API + live Cloudflare Pages frontend + Stripe checkout.
 set -euo pipefail
 API="${API:-https://promptshield-api-production.up.railway.app}"

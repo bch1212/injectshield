@@ -128,8 +128,8 @@ export async function handleStripeWebhook(
         to: email,
         fromEmail: env.SIGNUP_FROM_EMAIL,
         fromName: env.SIGNUP_FROM_NAME,
-        subject: "PromptShield: " + tier.toUpperCase() + " plan active",
-        text: `Your PromptShield plan is now ${tier.toUpperCase()}. Monthly request limit is ${keyTierLimit(tier).toLocaleString()}.\n\nManage your subscription via the Stripe customer portal: ${env.PUBLIC_BASE_URL}/account`,
+        subject: "InjectShield: " + tier.toUpperCase() + " plan active",
+        text: `Your InjectShield plan is now ${tier.toUpperCase()}. Monthly request limit is ${keyTierLimit(tier).toLocaleString()}.\n\nManage your subscription via the Stripe customer portal: ${env.PUBLIC_BASE_URL}/account`,
       });
     }
     return new Response("ok", { status: 200 });

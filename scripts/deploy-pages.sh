@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deploy the PromptShield landing page to Cloudflare Pages.
+# Deploy the InjectShield landing page to Cloudflare Pages.
 # Sources the Pages-scoped CF token from sibling fishing-seo project.
 set -euo pipefail
 

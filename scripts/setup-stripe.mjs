@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// Idempotent: creates the three PromptShield subscription products + prices
+// Idempotent: creates the three InjectShield subscription products + prices
 // in live Stripe (or test, when STRIPE_TEST_SECRET_KEY is exported and
-// PROMPTSHIELD_TEST=1). If a product with the same name already exists we
+// INJECTSHIELD_TEST=1). If a product with the same name already exists we
 // reuse it. Writes IDs to .stripe-prices.env for the deploy script to pick up.
 //
 // Usage:
@@ -10,21 +10,21 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const TEST = process.env.PROMPTSHIELD_TEST === "1";
+const TEST = process.env.INJECTSHIELD_TEST === "1";
 const KEY = TEST
   ? (process.env.STRIPE_TEST_SECRET_KEY || process.env.STRIPE_SECRET_KEY)
   : process.env.STRIPE_SECRET_KEY;
 if (!KEY) {
-  console.error("missing STRIPE_SECRET_KEY (or STRIPE_TEST_SECRET_KEY when PROMPTSHIELD_TEST=1)");
+  console.error("missing STRIPE_SECRET_KEY (or STRIPE_TEST_SECRET_KEY when INJECTSHIELD_TEST=1)");
   process.exit(1);
 }
 const MODE = KEY.startsWith("sk_test_") ? "test" : "live";
 console.log(`Provisioning Stripe in ${MODE} mode…`);
 
 const TIERS = [
-  { name: "PromptShield Hobby",  amount: 2900,  interval: "month", desc: "500K requests/mo, basic dashboard, webhook alerts." },
-  { name: "PromptShield Team",   amount: 9900,  interval: "month", desc: "5M requests/mo, custom patterns, team accounts." },
-  { name: "PromptShield Pro",    amount: 49900, interval: "month", desc: "Unlimited requests, SLA, no-logging mode." },
+  { name: "InjectShield Hobby",  amount: 2900,  interval: "month", desc: "500K requests/mo, basic dashboard, webhook alerts." },
+  { name: "InjectShield Team",   amount: 9900,  interval: "month", desc: "5M requests/mo, custom patterns, team accounts." },
+  { name: "InjectShield Pro",    amount: 49900, interval: "month", desc: "Unlimited requests, SLA, no-logging mode." },
 ];
 
 async function stripe(method, path, body) {
@@ -92,7 +92,7 @@ for (const t of TIERS) {
 }
 
 const file = path.join(process.cwd(), ".stripe-prices.env");
-const lines = [`# Stripe ${MODE} mode prices for PromptShield`, `STRIPE_MODE=${MODE}`];
+const lines = [`# Stripe ${MODE} mode prices for InjectShield`, `STRIPE_MODE=${MODE}`];
 for (const [k, v] of Object.entries(out)) lines.push(`${k}=${v}`);
 fs.writeFileSync(file, lines.join("\n") + "\n");
 console.log(`\nWrote ${file}:`);

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Autonomous Railway deploy for PromptShield.
+# Autonomous Railway deploy for InjectShield.
 #
 # - Reuses the shared deploy-secrets file at the workspace parent.
 # - Creates the Railway project + Postgres service + API service via GraphQL.
@@ -62,7 +62,7 @@ echo "→ workspace_id=$WORKSPACE_ID"
 PROJECT_ID="$(get project_id)"
 if [[ -z "$PROJECT_ID" ]]; then
   echo "→ creating Railway project 'promptshield'…"
-  resp=$(gql 'mutation($n:String!,$d:String!,$w:String!){projectCreate(input:{name:$n,description:$d,workspaceId:$w}){id name environments{edges{node{id name}}}}}' "$(jq -nc --arg n "promptshield" --arg d "PromptShield — prompt-injection firewall API" --arg w "$WORKSPACE_ID" '{n:$n,d:$d,w:$w}')")
+  resp=$(gql 'mutation($n:String!,$d:String!,$w:String!){projectCreate(input:{name:$n,description:$d,workspaceId:$w}){id name environments{edges{node{id name}}}}}' "$(jq -nc --arg n "promptshield" --arg d "InjectShield — prompt-injection firewall API" --arg w "$WORKSPACE_ID" '{n:$n,d:$d,w:$w}')")
   PROJECT_ID=$(echo "$resp" | jq -r '.data.projectCreate.id // empty')
   ENV_ID=$(echo "$resp" | jq -r '[.data.projectCreate.environments.edges[].node | select(.name=="production")] | .[0].id // empty')
   [[ -z "$ENV_ID" ]] && ENV_ID=$(echo "$resp" | jq -r '.data.projectCreate.environments.edges[0].node.id // empty')
@@ -117,7 +117,7 @@ fi
 
 # 4. Set env vars on the API service
 PUBLIC_BASE_URL="${PUBLIC_BASE_URL:-https://promptshield.pages.dev}"
-DISCORD_URL="${PROMPTSHIELD_DISCORD_WEBHOOK_URL:-${DISCORD_WEBHOOK_URL:-}}"
+DISCORD_URL="${INJECTSHIELD_DISCORD_WEBHOOK_URL:-${DISCORD_WEBHOOK_URL:-}}"
 
 echo "→ setting env vars on API service…"
 set_var() {
@@ -131,7 +131,7 @@ set_var PORT 8080
 set_var PUBLIC_BASE_URL "$PUBLIC_BASE_URL"
 set_var ALERT_THRESHOLD 0.8
 set_var SIGNUP_FROM_EMAIL "noreply@halversonco.com"
-set_var SIGNUP_FROM_NAME "PromptShield"
+set_var SIGNUP_FROM_NAME "InjectShield"
 set_var ADMIN_EMAIL "brett.halverson@gmail.com"
 set_var STRIPE_SECRET_KEY "$STRIPE_SECRET_KEY"
 set_var STRIPE_WEBHOOK_SECRET "$STRIPE_WEBHOOK_SECRET"

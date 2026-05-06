@@ -11,9 +11,9 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import process from "node:process";
 
-const API_KEY = process.env.PROMPTSHIELD_API_KEY;
+const API_KEY = process.env.INJECTSHIELD_API_KEY;
 if (!API_KEY) {
-  console.error("PROMPTSHIELD_API_KEY required");
+  console.error("INJECTSHIELD_API_KEY required");
   process.exit(1);
 }
 
@@ -26,8 +26,8 @@ const transport = new StdioClientTransport({
   args: ["dist/index.js"],
   env: {
     ...process.env,
-    PROMPTSHIELD_API_KEY: API_KEY,
-    PROMPTSHIELD_API_BASE: process.env.PROMPTSHIELD_API_BASE
+    INJECTSHIELD_API_KEY: API_KEY,
+    INJECTSHIELD_API_BASE: process.env.INJECTSHIELD_API_BASE
       || "https://promptshield-api-production.up.railway.app",
   },
 });
@@ -84,7 +84,7 @@ function payload(resp) {
   p.safe ? ok(`scan benign → safe=true`) : bad(`scan benign: ${JSON.stringify(p)}`);
 }
 
-// 5. scan_url against the live PromptShield landing page (web_content; should be benign)
+// 5. scan_url against the live InjectShield landing page (web_content; should be benign)
 {
   const r = await client.callTool({
     name: "scan_url",

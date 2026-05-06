@@ -1,4 +1,4 @@
-# PromptShield — Launch Post Drafts
+# InjectShield — Launch Post Drafts
 
 Brett owns launch timing per the steady-state-only convention. These are ready-to-post drafts. Personalize/edit before posting; don't paste verbatim.
 
@@ -12,13 +12,13 @@ Brett owns launch timing per the steady-state-only convention. These are ready-t
 
 ## 1. Show HN
 
-**Title:** `Show HN: PromptShield – a prompt-injection firewall for AI agents`
+**Title:** `Show HN: InjectShield – a prompt-injection firewall for AI agents`
 
 **Body:**
 
 After watching the OpenClaw thread last week (the schema-driven attack that burned Claude Code users' session quota with a single git commit), I built a small layer that sits between untrusted text and an AI agent's context window.
 
-PromptShield is a REST API that takes any string — git commit, web page, file, email, user input — and returns:
+InjectShield is a REST API that takes any string — git commit, web page, file, email, user input — and returns:
 
 - a confidence score
 - a threat category (instruction_injection, system_override, role_hijack, exfiltration, schema_attack, encoding_smuggle, invisible_text, tool_abuse, jailbreak_classic)
@@ -98,7 +98,7 @@ Free tier 10K/mo. Repo: https://github.com/bch1212/promptshield
 
 **Description:**
 
-PromptShield detects and neutralizes prompt-injection attacks in any text — git commits, web pages, files, emails, user input — before they reach your AI agent. Heuristic ruleset (open-source, MIT) plus an optional semantic classifier. Free tier: 10K requests/month. Self-serve, no waitlist.
+InjectShield detects and neutralizes prompt-injection attacks in any text — git commits, web pages, files, emails, user input — before they reach your AI agent. Heuristic ruleset (open-source, MIT) plus an optional semantic classifier. Free tier: 10K requests/month. Self-serve, no waitlist.
 
 **Topics:** Developer Tools · AI · Security · APIs
 
@@ -106,7 +106,7 @@ PromptShield detects and neutralizes prompt-injection attacks in any text — gi
 
 ## 6. Twitter / X thread (4 posts)
 
-**1/4** I built PromptShield — a small REST API that detects prompt-injection attacks in any text before it reaches your AI agent's context window. After the OpenClaw thread, this seemed overdue. https://injectshield.dev
+**1/4** I built InjectShield — a small REST API that detects prompt-injection attacks in any text before it reaches your AI agent's context window. After the OpenClaw thread, this seemed overdue. https://injectshield.dev
 
 **2/4** ~20 categorized regex rules (instruction-override, ChatML/Llama special tokens, role-tag forgery, ASCII smuggling via Unicode Tag block, base64-smuggle, exfil markdown images, OpenClaw schema). Open-source ruleset, MIT: https://github.com/bch1212/promptshield
 
@@ -118,7 +118,7 @@ PromptShield detects and neutralizes prompt-injection attacks in any text — gi
 
 ## 7. Anthropic Discord (#prompt-injection or #builders)
 
-> **PromptShield** — drop-in prompt-injection firewall for AI agents
+> **InjectShield** — drop-in prompt-injection firewall for AI agents
 >
 > Heuristic ruleset + Claude Haiku semantic classifier. Free tier 10K/mo.
 > https://injectshield.dev — github.com/bch1212/promptshield (MIT ruleset)
@@ -131,17 +131,17 @@ PromptShield detects and neutralizes prompt-injection attacks in any text — gi
 
 ## 8. LinkedIn
 
-**Headline:** `Shipped PromptShield — a prompt-injection firewall for AI agents`
+**Headline:** `Shipped InjectShield — a prompt-injection firewall for AI agents`
 
 **Body:**
 
 A few weeks ago a single git commit message demonstrated it could burn an entire Claude Code session's quota by exploiting prompt-injection. The "OpenClaw" attack is a single instance of a much larger problem: AI agents ingest untrusted text from many sources, and most teams ship without any input-side detection layer.
 
-I built PromptShield to close that gap.
+I built InjectShield to close that gap.
 
 It's a REST API that scans any text and returns a confidence score, threat category, matched patterns, and a sanitized version. Free tier is 10K requests/month. The heuristic ruleset is open-source (MIT) so anyone can audit, contribute, or self-host it.
 
-PromptShield isn't a silver bullet — it's one layer of defense-in-depth. But it's a useful layer most agents lack today.
+InjectShield isn't a silver bullet — it's one layer of defense-in-depth. But it's a useful layer most agents lack today.
 
 → https://injectshield.dev
 → https://github.com/bch1212/promptshield

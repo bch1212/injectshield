@@ -25,10 +25,10 @@ export function newKeyEmail(opts: {
   apiKey: string; email: string; apiBase: string; publicBase: string;
 }) {
   const { apiKey, email, apiBase, publicBase } = opts;
-  const subject = "Welcome to PromptShield - your API key is inside";
+  const subject = "Welcome to InjectShield - your API key is inside";
   const text = `Hi,
 
-Your PromptShield API key is:
+Your InjectShield API key is:
 
   ${apiKey}
 
@@ -45,9 +45,9 @@ custom patterns, and webhook alerts: ${publicBase}/#pricing
 Docs: ${publicBase}/docs
 GitHub (open-source ruleset): https://github.com/bch1212/promptshield
 
-- PromptShield`;
+- InjectShield`;
   const html = `<!doctype html><html><body style="font-family:-apple-system,Segoe UI,sans-serif;line-height:1.5;max-width:560px;margin:0 auto;padding:24px;color:#0f172a">
-<h2 style="margin:0 0 16px">Welcome to PromptShield</h2>
+<h2 style="margin:0 0 16px">Welcome to InjectShield</h2>
 <p>Your API key:</p>
 <pre style="background:#0f172a;color:#f1f5f9;padding:14px 16px;border-radius:8px;overflow:auto"><code>${apiKey}</code></pre>
 <p>Quick start:</p>
@@ -59,7 +59,7 @@ GitHub (open-source ruleset): https://github.com/bch1212/promptshield
 <a href="${publicBase}/#pricing">${publicBase}/#pricing</a></p>
 <p>Docs: <a href="${publicBase}/docs">${publicBase}/docs</a><br>
 Open-source ruleset: <a href="https://github.com/bch1212/promptshield">github.com/bch1212/promptshield</a></p>
-<p style="color:#64748b;font-size:12px">PromptShield reduces but does not eliminate prompt-injection risk. Use as one layer of a defense-in-depth strategy.</p>
+<p style="color:#64748b;font-size:12px">InjectShield reduces but does not eliminate prompt-injection risk. Use as one layer of a defense-in-depth strategy.</p>
 </body></html>`;
   return { subject, text, html, to: email };
 }

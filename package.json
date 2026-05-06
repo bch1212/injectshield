@@ -1,10 +1,12 @@
 {
-  "name": "promptshield",
+  "name": "injectshield",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Prompt-injection firewall for AI agents — heuristic + semantic detection.",
-  "engines": { "node": ">=20" },
+  "description": "Prompt-injection firewall for AI agents \u2014 heuristic + semantic detection.",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "tsx server/index.ts",
     "start": "tsx server/index.ts",

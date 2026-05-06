@@ -1,12 +1,12 @@
 {
-  "name": "@promptshield/mcp",
+  "name": "@injectshield/mcp",
   "version": "0.1.0",
-  "description": "MCP server for PromptShield — prompt-injection firewall for AI agents.",
+  "description": "MCP server for InjectShield — prompt-injection firewall for AI agents.",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "promptshield-mcp": "dist/index.js"
+    "injectshield-mcp": "dist/index.js"
   },
   "files": [
     "dist/",
@@ -41,7 +41,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bch1212/promptshield.git",
-    "directory": "packages/promptshield-mcp"
+    "directory": "packages/injectshield-mcp"
   },
   "bugs": {
     "url": "https://github.com/bch1212/promptshield/issues"

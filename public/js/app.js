@@ -1,6 +1,6 @@
-// PromptShield landing-page glue. No bundler — keep it small and readable.
+// InjectShield landing-page glue. No bundler — keep it small and readable.
 (function () {
-  const API = window.PROMPTSHIELD_API_BASE || "https://promptshield.bch1212.workers.dev";
+  const API = window.INJECTSHIELD_API_BASE || "https://promptshield.bch1212.workers.dev";
   // Replace API base placeholder in code snippets too.
   document.querySelectorAll(".api-base").forEach((el) => (el.textContent = API));
 

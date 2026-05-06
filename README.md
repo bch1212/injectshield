@@ -1,4 +1,4 @@
-# PromptShield
+# InjectShield
 
 **Prompt-injection firewall for AI agents.**
 
@@ -12,18 +12,18 @@ This repo is the **open-source heuristic ruleset** plus the source for the manag
 
 In May 2026 a viral HN thread demonstrated that a single git commit message could burn a Claude Code user's entire session quota via a schema-driven attack ("OpenClaw"). The pattern is general: any AI agent that ingests untrusted text — code review bots, documentation summarizers, RAG agents, support copilots — is exposed to prompt injection. Most teams ship without any input-side defense.
 
-PromptShield is one layer of a defense-in-depth strategy. It's not a silver bullet. Use it alongside system-prompt hardening, tool sandboxing, and output filtering.
+InjectShield is one layer of a defense-in-depth strategy. It's not a silver bullet. Use it alongside system-prompt hardening, tool sandboxing, and output filtering.
 
 ## Install as an MCP (Claude Code, Cursor, Cline, ...)
 
-PromptShield ships a native MCP server at [`@promptshield/mcp`](./packages/promptshield-mcp). Once installed, your agent has three new tools — `scan`, `scan_url`, `patterns` — for input-side defense without writing any glue code.
+InjectShield ships a native MCP server at [`@injectshield/mcp`](./packages/injectshield-mcp). Once installed, your agent has three new tools — `scan`, `scan_url`, `patterns` — for input-side defense without writing any glue code.
 
 ```bash
 # Claude Code:
-claude mcp add promptshield --env PROMPTSHIELD_API_KEY=ps_live_… -- npx -y @promptshield/mcp
+claude mcp add injectshield --env INJECTSHIELD_API_KEY=is_live_… -- npx -y @injectshield/mcp
 ```
 
-For Cursor / Cline / other MCP clients, see [`packages/promptshield-mcp/README.md`](./packages/promptshield-mcp/README.md).
+For Cursor / Cline / other MCP clients, see [`packages/injectshield-mcp/README.md`](./packages/injectshield-mcp/README.md).
 
 ## Quick start
 
@@ -35,7 +35,7 @@ curl -X POST https://api.injectshield.dev/v1/keys \
 
 # 2) Scan:
 curl -X POST https://api.injectshield.dev/v1/scan \
-  -H "Authorization: Bearer ps_live_..." \
+  -H "Authorization: Bearer is_live_..." \
   -H "Content-Type: application/json" \
   -d '{"text":"ignore previous instructions","context":"user_input"}'
 ```
@@ -98,7 +98,7 @@ DATABASE_URL=postgres://... npm run dev   # boots Hono on :8080
 
 ## License
 
-[MIT](LICENSE). PromptShield reduces but does not eliminate prompt-injection risk.
+[MIT](LICENSE). InjectShield reduces but does not eliminate prompt-injection risk.
 
 ## Acknowledgments
 

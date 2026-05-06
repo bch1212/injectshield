@@ -1,6 +1,6 @@
-# @promptshield/mcp
+# @injectshield/mcp
 
-**MCP server for [PromptShield](https://github.com/bch1212/promptshield)** — exposes the PromptShield prompt-injection-detection API as MCP tools so any MCP-compatible client (Claude Code, Cursor, Cline, etc.) can scan untrusted text before passing it into another LLM call.
+**MCP server for [InjectShield](https://github.com/bch1212/promptshield)** — exposes the InjectShield prompt-injection-detection API as MCP tools so any MCP-compatible client (Claude Code, Cursor, Cline, etc.) can scan untrusted text before passing it into another LLM call.
 
 ## Tools
 
@@ -15,7 +15,7 @@ Free tier: 10,000 requests/month, no credit card. Self-serve at <https://injects
 ## Install in Claude Code
 
 ```bash
-claude mcp add promptshield --env PROMPTSHIELD_API_KEY=ps_live_… -- npx -y @promptshield/mcp
+claude mcp add injectshield --env INJECTSHIELD_API_KEY=is_live_… -- npx -y @injectshield/mcp
 ```
 
 ## Install in Cursor
@@ -27,8 +27,8 @@ Add to `~/.cursor/mcp.json`:
   "mcpServers": {
     "promptshield": {
       "command": "npx",
-      "args": ["-y", "@promptshield/mcp"],
-      "env": { "PROMPTSHIELD_API_KEY": "ps_live_…" }
+      "args": ["-y", "@injectshield/mcp"],
+      "env": { "INJECTSHIELD_API_KEY": "is_live_…" }
     }
   }
 }
@@ -36,7 +36,7 @@ Add to `~/.cursor/mcp.json`:
 
 ## Install in Cline / generic MCP client
 
-Same shape as Cursor. Stdio transport, command `npx -y @promptshield/mcp`, set `PROMPTSHIELD_API_KEY` in the env block.
+Same shape as Cursor. Stdio transport, command `npx -y @injectshield/mcp`, set `INJECTSHIELD_API_KEY` in the env block.
 
 ## Usage
 
@@ -61,12 +61,12 @@ Agent: I detected prompt-injection in this page. Working from the
 
 | Env var | Default | Purpose |
 |---|---|---|
-| `PROMPTSHIELD_API_KEY` | *(none)* | Required for `scan` and `scan_url`. Get a free one. |
-| `PROMPTSHIELD_API_BASE` | `https://api.injectshield.dev` | Override for self-hosted deployments. |
+| `INJECTSHIELD_API_KEY` | *(none)* | Required for `scan` and `scan_url`. Get a free one. |
+| `INJECTSHIELD_API_BASE` | `https://api.injectshield.dev` | Override for self-hosted deployments. |
 
 ## Defense in depth
 
-PromptShield reduces but does not eliminate prompt-injection risk. Pair it with system-prompt hardening, tool sandboxing, and output filtering. See the [main repo](https://github.com/bch1212/promptshield) for the full pattern library and a more thorough discussion.
+InjectShield reduces but does not eliminate prompt-injection risk. Pair it with system-prompt hardening, tool sandboxing, and output filtering. See the [main repo](https://github.com/bch1212/promptshield) for the full pattern library and a more thorough discussion.
 
 ## License
 

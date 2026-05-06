@@ -1,4 +1,4 @@
-// PromptShield — main Cloudflare Worker entry.
+// InjectShield — main Cloudflare Worker entry.
 // Routes:
 //   POST /v1/scan           — auth + heuristic + AI detection
 //   POST /v1/keys           — public free-tier signup, emails the key
@@ -334,7 +334,7 @@ export default {
     }
 
     if (url.pathname === "/") {
-      return new Response(`PromptShield API
+      return new Response(`InjectShield API
 Try POST /v1/scan, /v1/keys, /v1/demo, /v1/patterns, /healthz.
 Docs: ${env.PUBLIC_BASE_URL}/docs`, { headers: { "content-type": "text/plain", ...CORS } });
     }

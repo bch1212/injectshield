@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PromptShield Docs</title>
+<title>InjectShield Docs</title>
 <link rel="stylesheet" href="/css/style.css?v=__VERSION__">
 <style>
   .doc { max-width: 860px; }
@@ -15,7 +15,7 @@
 </head>
 <body>
 <header class="nav">
-  <a class="brand" href="/"><span class="logo">▮▯</span> PromptShield</a>
+  <a class="brand" href="/"><span class="logo">▮▯</span> InjectShield</a>
   <nav>
     <a href="/#demo">Demo</a>
     <a href="/#pricing">Pricing</a>
@@ -30,8 +30,8 @@
 
   <h2>Authentication</h2>
   <p>Pass your API key as a bearer token:</p>
-  <pre><code>Authorization: Bearer ps_live_…</code></pre>
-  <p>Or via header: <code>X-API-Key: ps_live_…</code>.</p>
+  <pre><code>Authorization: Bearer is_live_…</code></pre>
+  <p>Or via header: <code>X-API-Key: is_live_…</code>.</p>
 
   <h2>POST /v1/scan</h2>
   <p>Returns a verdict and (optionally) a sanitized version of the input.</p>
@@ -98,14 +98,14 @@
   </table>
 
   <h2>Defense in depth</h2>
-  <p>PromptShield is one layer of a defense-in-depth strategy. Pair it with:
+  <p>InjectShield is one layer of a defense-in-depth strategy. Pair it with:
   prompt-template constraints, tool argument validation, output filtering,
   and least-privilege agent permissions. We will <em>not</em> claim 100%
   detection — that's mathematically impossible.</p>
 </section>
 
 <footer>
-  <p>© 2026 PromptShield · <a href="/">Home</a> · <a href="https://github.com/bch1212/promptshield">GitHub</a></p>
+  <p>© 2026 InjectShield · <a href="/">Home</a> · <a href="https://github.com/bch1212/promptshield">GitHub</a></p>
 </footer>
 <script>document.querySelectorAll(".api-base").forEach(el => el.textContent = "https://api.injectshield.dev")</script>
 </body>

@@ -1,4 +1,4 @@
-// PromptShield heuristic pattern library.
+// InjectShield heuristic pattern library.
 // Each pattern emits a category + base weight (0-1). Final confidence is
 // the softmax-style aggregate computed in detect.ts. Categories let the
 // API surface threat_type without leaking specific patterns to attackers.

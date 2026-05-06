@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// PromptShield MCP server — wraps the PromptShield REST API as MCP tools.
+// InjectShield MCP server — wraps the InjectShield REST API as MCP tools.
 //
 // Tools:
 //   - scan        Scan a string for prompt-injection.
@@ -7,8 +7,8 @@
 //   - patterns    List supported categories / contexts / sensitivities.
 //
 // Configuration (env):
-//   PROMPTSHIELD_API_KEY   Required. ps_live_… key from https://promptshield-6hz.pages.dev
-//   PROMPTSHIELD_API_BASE  Optional. Defaults to the public managed endpoint.
+//   INJECTSHIELD_API_KEY   Required. is_live_… key from https://promptshield-6hz.pages.dev
+//   INJECTSHIELD_API_BASE  Optional. Defaults to the public managed endpoint.
 //
 // Transport: stdio (standard MCP local-server transport).
 
@@ -22,9 +22,9 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 
 const API_BASE =
-  process.env.PROMPTSHIELD_API_BASE ||
+  process.env.INJECTSHIELD_API_BASE ||
   "https://api.injectshield.dev";
-const API_KEY = process.env.PROMPTSHIELD_API_KEY || "";
+const API_KEY = process.env.INJECTSHIELD_API_KEY || "";
 
 const PKG_VERSION = "0.1.0";
 
@@ -144,7 +144,7 @@ async function callApi(
 ): Promise<any> {
   const headers: Record<string, string> = {
     "content-type": "application/json",
-    "user-agent": `promptshield-mcp/${PKG_VERSION}`,
+    "user-agent": `injectshield-mcp/${PKG_VERSION}`,
     ...((init.headers as Record<string, string>) || {}),
   };
   if (API_KEY) headers["authorization"] = "Bearer " + API_KEY;
@@ -160,18 +160,18 @@ async function callApi(
   } catch {
     throw new McpError(
       ErrorCode.InternalError,
-      `PromptShield API returned non-JSON (status ${r.status}).`,
+      `InjectShield API returned non-JSON (status ${r.status}).`,
     );
   }
   if (!r.ok) {
     const code = json?.error?.code || `http_${r.status}`;
     const message =
       json?.error?.message ||
-      `PromptShield API error (status ${r.status}).`;
+      `InjectShield API error (status ${r.status}).`;
     if (code === "missing_api_key" || code === "invalid_api_key") {
       throw new McpError(
         ErrorCode.InvalidRequest,
-        `${message} Set the PROMPTSHIELD_API_KEY env var. Get a free key at https://promptshield-6hz.pages.dev`,
+        `${message} Set the INJECTSHIELD_API_KEY env var. Get a free key at https://promptshield-6hz.pages.dev`,
       );
     }
     throw new McpError(ErrorCode.InternalError, `${code}: ${message}`);
@@ -183,7 +183,7 @@ async function fetchUrl(url: string, maxBytes: number): Promise<string> {
   const r = await fetch(url, {
     method: "GET",
     redirect: "follow",
-    headers: { "user-agent": `promptshield-mcp/${PKG_VERSION}` },
+    headers: { "user-agent": `injectshield-mcp/${PKG_VERSION}` },
   });
   if (!r.ok) {
     throw new McpError(
@@ -236,13 +236,13 @@ async function handleScanUrl(args: ScanUrlArgs) {
 
 async function handlePatterns() {
   const r = await fetch(API_BASE + "/v1/patterns", {
-    headers: { "user-agent": `promptshield-mcp/${PKG_VERSION}` },
+    headers: { "user-agent": `injectshield-mcp/${PKG_VERSION}` },
   });
   return await r.json();
 }
 
 const server = new Server(
-  { name: "promptshield-mcp", version: PKG_VERSION },
+  { name: "injectshield-mcp", version: PKG_VERSION },
   { capabilities: { tools: {} } },
 );
 
@@ -278,7 +278,7 @@ async function main() {
     // Don't hard-fail at startup — patterns() works without auth, and the
     // helpful error is delivered at first scan() call. But warn on stderr.
     process.stderr.write(
-      "[promptshield-mcp] PROMPTSHIELD_API_KEY not set — scan/scan_url will return auth errors. " +
+      "[injectshield-mcp] INJECTSHIELD_API_KEY not set — scan/scan_url will return auth errors. " +
         "Get a free key: https://promptshield-6hz.pages.dev\n",
     );
   }
@@ -287,6 +287,6 @@ async function main() {
 }
 
 main().catch((e) => {
-  process.stderr.write(`[promptshield-mcp] fatal: ${e?.stack || e}\n`);
+  process.stderr.write(`[injectshield-mcp] fatal: ${e?.stack || e}\n`);
   process.exit(1);
 });

@@ -1,4 +1,4 @@
-// PromptShield — Node server (Railway adapter).
+// InjectShield — Node server (Railway adapter).
 // Uses Hono so the same routes are theoretically swappable to a Cloudflare
 // Workers entrypoint later. Storage is Postgres (replaces KV + D1 in the
 // build prompt). Heuristic detection is shared with the Workers source via
@@ -30,7 +30,7 @@ const env = {
   API_BASE_URL: process.env.API_BASE_URL || "",
   ALERT_THRESHOLD: parseFloat(process.env.ALERT_THRESHOLD || "0.8"),
   SIGNUP_FROM_EMAIL: process.env.SIGNUP_FROM_EMAIL || "noreply@halversonco.com",
-  SIGNUP_FROM_NAME: process.env.SIGNUP_FROM_NAME || "PromptShield",
+  SIGNUP_FROM_NAME: process.env.SIGNUP_FROM_NAME || "InjectShield",
   ADMIN_EMAIL: process.env.ADMIN_EMAIL || "brett.halverson@gmail.com",
   // secrets
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || "",
@@ -121,7 +121,7 @@ async function postDiscord(content: string) {
 // --- routes ---
 
 app.get("/healthz", (c) => c.json({ ok: true, env: env.ENVIRONMENT, time: Date.now() }));
-app.get("/", (c) => c.text(`PromptShield API
+app.get("/", (c) => c.text(`InjectShield API
 Try POST /v1/scan, /v1/keys, /v1/demo, /v1/patterns, /healthz.
 Docs: ${env.PUBLIC_BASE_URL}/docs`));
 
@@ -171,7 +171,7 @@ app.post("/v1/scan", async (c) => {
     text: record.no_logging ? undefined : text,
   });
   if (!result.safe && result.confidence >= env.ALERT_THRESHOLD) {
-    postDiscord(`[promptshield] high-confidence detection (${result.confidence}, ${result.threat_type}) by ${record.email}, request ${id}`);
+    postDiscord(`[injectshield] high-confidence detection (${result.confidence}, ${result.threat_type}) by ${record.email}, request ${id}`);
   }
 
   return c.json({
@@ -241,7 +241,7 @@ app.post("/v1/keys", async (c) => {
     text: e.text,
     html: e.html,
   });
-  postDiscord(`[promptshield] new free signup: ${email}`);
+  postDiscord(`[injectshield] new free signup: ${email}`);
   return c.json({
     ok: true,
     email_sent: sent,
@@ -387,11 +387,11 @@ app.post("/webhooks/stripe", async (c) => {
       });
       await sendEmail(env.SENDGRID_API_KEY, {
         to: email, fromEmail: env.SIGNUP_FROM_EMAIL, fromName: env.SIGNUP_FROM_NAME,
-        subject: "PromptShield: " + tier.toUpperCase() + " plan active",
-        text: `Your PromptShield plan is now ${tier.toUpperCase()}. Monthly request limit is ${keyTierLimit(tier).toLocaleString()}.\n\nManage your subscription via the Stripe customer portal.`,
+        subject: "InjectShield: " + tier.toUpperCase() + " plan active",
+        text: `Your InjectShield plan is now ${tier.toUpperCase()}. Monthly request limit is ${keyTierLimit(tier).toLocaleString()}.\n\nManage your subscription via the Stripe customer portal.`,
       });
     }
-    postDiscord(`[promptshield] Stripe checkout: ${email} -> ${tier}`);
+    postDiscord(`[injectshield] Stripe checkout: ${email} -> ${tier}`);
     return c.text("ok", 200);
   }
 
@@ -401,7 +401,7 @@ app.post("/webhooks/stripe", async (c) => {
     for (const k of keys) {
       await updateKey(pool, k, { tier: "free", monthly_limit: keyTierLimit("free") });
     }
-    postDiscord(`[promptshield] Stripe cancel: ${email}`);
+    postDiscord(`[injectshield] Stripe cancel: ${email}`);
     return c.text("ok", 200);
   }
   return c.text("ignored", 200);
@@ -422,7 +422,7 @@ app.get("/admin/key-for", async (c) => {
 // --- bootstrap ---
 (async () => {
   await migrate(pool);
-  console.log("PromptShield listening on :" + env.PORT);
+  console.log("InjectShield listening on :" + env.PORT);
   serve({ fetch: app.fetch, port: env.PORT });
 })().catch((e) => {
   console.error("boot failure:", e);

@@ -1,4 +1,4 @@
-// Postgres-backed storage for PromptShield (Railway adapter).
+// Postgres-backed storage for InjectShield (Railway adapter).
 // Replaces Cloudflare KV (keys, rate-limit) and D1 (usage, scans) with a
 // single pg pool. Rate limiting uses in-process token buckets.
 
@@ -26,7 +26,7 @@ const TIER_LIMITS: Record<Tier, number> = {
 };
 
 export function keyTierLimit(tier: Tier): number { return TIER_LIMITS[tier]; }
-export function newApiKey(): string { return "ps_live_" + randomUUID().replace(/-/g, ""); }
+export function newApiKey(): string { return "is_live_" + randomUUID().replace(/-/g, ""); }
 
 let pool: Pool | null = null;
 export function getPool(databaseUrl: string): Pool {
@@ -115,7 +115,9 @@ export async function createKey(
 }
 
 export async function getKey(p: Pool, apiKey: string): Promise<KeyRecord | null> {
-  if (!apiKey || !apiKey.startsWith("ps_")) return null;
+  // Accept both `is_*` (current InjectShield prefix) and `ps_*` (legacy
+  // PromptShield prefix) — existing keys minted pre-rebrand stay valid.
+  if (!apiKey || !(apiKey.startsWith("is_") || apiKey.startsWith("ps_"))) return null;
   const r = await p.query(`SELECT * FROM keys WHERE api_key = $1`, [apiKey]);
   return (r.rows[0] as KeyRecord) || null;
 }
