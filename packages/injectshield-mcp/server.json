@@ -7,14 +7,14 @@
     "source": "github",
     "subfolder": "packages/injectshield-mcp"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "websiteUrl": "https://injectshield.dev",
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@injectshield/mcp",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "transport": { "type": "stdio" },
       "environmentVariables": [
         {
