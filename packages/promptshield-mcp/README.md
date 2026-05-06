@@ -10,7 +10,7 @@
 
 ## Get an API key
 
-Free tier: 10,000 requests/month, no credit card. Self-serve at <https://promptshield-6hz.pages.dev> — your key is delivered by email.
+Free tier: 10,000 requests/month, no credit card. Self-serve at <https://injectshield.dev> — your key is delivered by email.
 
 ## Install in Claude Code
 
@@ -62,7 +62,7 @@ Agent: I detected prompt-injection in this page. Working from the
 | Env var | Default | Purpose |
 |---|---|---|
 | `PROMPTSHIELD_API_KEY` | *(none)* | Required for `scan` and `scan_url`. Get a free one. |
-| `PROMPTSHIELD_API_BASE` | `https://promptshield-api-production.up.railway.app` | Override for self-hosted deployments. |
+| `PROMPTSHIELD_API_BASE` | `https://api.injectshield.dev` | Override for self-hosted deployments. |
 
 ## Defense in depth
 

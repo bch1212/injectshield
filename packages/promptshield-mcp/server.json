@@ -8,7 +8,7 @@
     "subfolder": "packages/promptshield-mcp"
   },
   "version": "0.1.0",
-  "websiteUrl": "https://promptshield-6hz.pages.dev",
+  "websiteUrl": "https://injectshield.dev",
   "packages": [
     {
       "registryType": "npm",
@@ -19,7 +19,7 @@
       "environmentVariables": [
         {
           "name": "PROMPTSHIELD_API_KEY",
-          "description": "API key from https://promptshield-6hz.pages.dev (free tier: 10K req/mo).",
+          "description": "API key from https://injectshield.dev (free tier: 10K req/mo).",
           "isRequired": true,
           "isSecret": true
         },
@@ -27,7 +27,7 @@
           "name": "PROMPTSHIELD_API_BASE",
           "description": "Override the API base URL for self-hosted deployments.",
           "isRequired": false,
-          "default": "https://promptshield-api-production.up.railway.app"
+          "default": "https://api.injectshield.dev"
         }
       ]
     }

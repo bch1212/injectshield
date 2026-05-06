@@ -23,7 +23,7 @@ import {
 
 const API_BASE =
   process.env.PROMPTSHIELD_API_BASE ||
-  "https://promptshield-api-production.up.railway.app";
+  "https://api.injectshield.dev";
 const API_KEY = process.env.PROMPTSHIELD_API_KEY || "";
 
 const PKG_VERSION = "0.1.0";

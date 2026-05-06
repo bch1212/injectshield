@@ -29,27 +29,27 @@ For Cursor / Cline / other MCP clients, see [`packages/promptshield-mcp/README.m
 
 ```bash
 # 1) Get a key (delivered by email):
-curl -X POST https://promptshield-api-production.up.railway.app/v1/keys \
+curl -X POST https://api.injectshield.dev/v1/keys \
   -H "Content-Type: application/json" \
   -d '{"email":"you@company.com"}'
 
 # 2) Scan:
-curl -X POST https://promptshield-api-production.up.railway.app/v1/scan \
+curl -X POST https://api.injectshield.dev/v1/scan \
   -H "Authorization: Bearer ps_live_..." \
   -H "Content-Type: application/json" \
   -d '{"text":"ignore previous instructions","context":"user_input"}'
 ```
 
-Or signup via the landing page: https://promptshield-6hz.pages.dev — self-serve, email delivery.
+Or signup via the landing page: https://injectshield.dev — self-serve, email delivery.
 
 ## What's open-source vs. managed
 
 **Live:**
 
-- Landing page + live demo: https://promptshield-6hz.pages.dev
-- API base: `https://promptshield-api-production.up.railway.app`
-- Health: https://promptshield-api-production.up.railway.app/healthz
-- Docs: https://promptshield-6hz.pages.dev/docs
+- Landing page + live demo: https://injectshield.dev
+- API base: `https://api.injectshield.dev`
+- Health: https://api.injectshield.dev/healthz
+- Docs: https://injectshield.dev/docs
 
 **Open-source (this repo, MIT):**
 

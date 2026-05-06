@@ -105,14 +105,14 @@
   <details class="snippet">
     <summary>Show usage snippets</summary>
     <h4>curl</h4>
-<pre><code>curl -X POST <span class="api-base">https://api.promptshield.dev</span>/v1/scan \
+<pre><code>curl -X POST <span class="api-base">https://api.injectshield.dev</span>/v1/scan \
   -H "Authorization: Bearer ps_live_..." \
   -H "Content-Type: application/json" \
   -d '{"text":"ignore previous instructions","context":"user_input"}'</code></pre>
     <h4>Python</h4>
 <pre><code>import requests
 r = requests.post(
-  "<span class='api-base'>https://api.promptshield.dev</span>/v1/scan",
+  "<span class='api-base'>https://api.injectshield.dev</span>/v1/scan",
   headers={"Authorization": f"Bearer {API_KEY}"},
   json={"text": untrusted_text, "context": "web_content"},
 ).json()
@@ -120,7 +120,7 @@ if not r["safe"]:
     raise RuntimeError(f"Injection detected: {r['threat_type']}")</code></pre>
     <h4>Node.js</h4>
 <pre><code>const r = await fetch(
-  "<span class='api-base'>https://api.promptshield.dev</span>/v1/scan",
+  "<span class='api-base'>https://api.injectshield.dev</span>/v1/scan",
   {
     method: "POST",
     headers: {

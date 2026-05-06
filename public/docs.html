@@ -26,7 +26,7 @@
 
 <section class="doc">
   <h1>API Reference</h1>
-  <p class="muted">Base URL: <code class="api-base">https://api.promptshield.dev</code></p>
+  <p class="muted">Base URL: <code class="api-base">https://api.injectshield.dev</code></p>
 
   <h2>Authentication</h2>
   <p>Pass your API key as a bearer token:</p>
@@ -58,7 +58,7 @@
 
   <h2>POST /v1/keys (signup)</h2>
   <p>Public, throttled to 5 signups/IP/day. Sends an API key to the supplied email.</p>
-<pre><code>curl -X POST <span class="api-base">https://api.promptshield.dev</span>/v1/keys \
+<pre><code>curl -X POST <span class="api-base">https://api.injectshield.dev</span>/v1/keys \
   -H "Content-Type: application/json" \
   -d '{"email":"you@company.com"}'</code></pre>
 
@@ -107,6 +107,6 @@
 <footer>
   <p>© 2026 PromptShield · <a href="/">Home</a> · <a href="https://github.com/bch1212/promptshield">GitHub</a></p>
 </footer>
-<script>document.querySelectorAll(".api-base").forEach(el => el.textContent = "https://api.promptshield.dev")</script>
+<script>document.querySelectorAll(".api-base").forEach(el => el.textContent = "https://api.injectshield.dev")</script>
 </body>
 </html>
