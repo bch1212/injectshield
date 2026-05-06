@@ -37,14 +37,14 @@
     "agent",
     "guardrails"
   ],
-  "homepage": "https://github.com/bch1212/promptshield",
+  "homepage": "https://github.com/bch1212/injectshield",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bch1212/promptshield.git",
+    "url": "git+https://github.com/bch1212/injectshield.git",
     "directory": "packages/injectshield-mcp"
   },
   "bugs": {
-    "url": "https://github.com/bch1212/promptshield/issues"
+    "url": "https://github.com/bch1212/injectshield/issues"
   },
   "publishConfig": {
     "access": "public"

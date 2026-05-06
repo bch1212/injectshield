@@ -6,7 +6,7 @@ Brett owns launch timing per the steady-state-only convention. These are ready-t
 - Landing page: https://injectshield.dev
 - API base: https://api.injectshield.dev
 - Docs: https://injectshield.dev/docs
-- GitHub: https://github.com/bch1212/promptshield
+- GitHub: https://github.com/bch1212/injectshield
 
 ---
 
@@ -27,7 +27,7 @@ InjectShield is a REST API that takes any string — git commit, web page, file,
 
 Free tier is 10K requests/month, no credit card. Paid tiers add custom patterns, webhook alerts, and a no-logging mode.
 
-**The heuristic ruleset is open-source** (MIT) at github.com/bch1212/promptshield. Twenty-ish categorized regexes covering the patterns I've seen in the wild — ChatML/Llama special-token forgery, role-tag injection, ASCII smuggling via Unicode Tag block, base64-decoded directives, OpenClaw schema references, etc. The semantic layer (Claude Haiku classifier with capped contribution) is in the managed API.
+**The heuristic ruleset is open-source** (MIT) at github.com/bch1212/injectshield. Twenty-ish categorized regexes covering the patterns I've seen in the wild — ChatML/Llama special-token forgery, role-tag injection, ASCII smuggling via Unicode Tag block, base64-decoded directives, OpenClaw schema references, etc. The semantic layer (Claude Haiku classifier with capped contribution) is in the managed API.
 
 I'm explicitly not claiming this catches everything. It's one layer of defense in depth — pair it with system-prompt hardening, tool sandboxing, and output filtering. But "no detection at all" is what most teams ship today, and that's the gap I wanted to close.
 
@@ -45,7 +45,7 @@ Pattern PRs welcome.
 
 Built a heuristic ruleset for prompt-injection detection after watching the OpenClaw HN thread. ~20 categorized patterns covering ChatML/Llama special-token forgery, role-tag injection, ASCII smuggling (Unicode Tag block U+E0000-E007F), base64-decoded directives, exfil markdown images, and the OpenClaw schema attack itself.
 
-Repo: https://github.com/bch1212/promptshield (MIT)
+Repo: https://github.com/bch1212/injectshield (MIT)
 
 There's also a managed API at https://injectshield.dev with a free 10K req/month tier. It runs the same ruleset plus a Claude Haiku semantic classifier (cap'd contribution so it can't single-handedly flip the verdict). Self-serve signup, no waitlist.
 
@@ -61,7 +61,7 @@ Curious what attacks are missing. Issues / PRs welcome.
 
 You've probably seen the OpenClaw thread — the git-commit attack that exhausted Claude Code session quotas. I built a small REST layer to detect that kind of pattern before it reaches an agent's context window.
 
-Heuristic ruleset is open-source (MIT): https://github.com/bch1212/promptshield
+Heuristic ruleset is open-source (MIT): https://github.com/bch1212/injectshield
 
 Managed API w/ free tier: https://injectshield.dev — paste any text, see what we'd flag. The OpenClaw schema is one of the patterns we explicitly catch.
 
@@ -88,7 +88,7 @@ def safe_for_agent(text, ctx="user_input"):
     return r["safe"], r.get("threat_type"), r.get("cleaned_text")
 ```
 
-Free tier 10K/mo. Repo: https://github.com/bch1212/promptshield
+Free tier 10K/mo. Repo: https://github.com/bch1212/injectshield
 
 ---
 
@@ -108,7 +108,7 @@ InjectShield detects and neutralizes prompt-injection attacks in any text — gi
 
 **1/4** I built InjectShield — a small REST API that detects prompt-injection attacks in any text before it reaches your AI agent's context window. After the OpenClaw thread, this seemed overdue. https://injectshield.dev
 
-**2/4** ~20 categorized regex rules (instruction-override, ChatML/Llama special tokens, role-tag forgery, ASCII smuggling via Unicode Tag block, base64-smuggle, exfil markdown images, OpenClaw schema). Open-source ruleset, MIT: https://github.com/bch1212/promptshield
+**2/4** ~20 categorized regex rules (instruction-override, ChatML/Llama special tokens, role-tag forgery, ASCII smuggling via Unicode Tag block, base64-smuggle, exfil markdown images, OpenClaw schema). Open-source ruleset, MIT: https://github.com/bch1212/injectshield
 
 **3/4** Managed API adds a Claude Haiku semantic classifier (contribution capped at ±0.15 so it can't single-handedly flip a verdict). Free tier: 10K requests/month, no credit card.
 
@@ -121,7 +121,7 @@ InjectShield detects and neutralizes prompt-injection attacks in any text — gi
 > **InjectShield** — drop-in prompt-injection firewall for AI agents
 >
 > Heuristic ruleset + Claude Haiku semantic classifier. Free tier 10K/mo.
-> https://injectshield.dev — github.com/bch1212/promptshield (MIT ruleset)
+> https://injectshield.dev — github.com/bch1212/injectshield (MIT ruleset)
 >
 > Detection categories: instruction-override, system-override, role-hijack, exfiltration, schema-attacks (incl. OpenClaw), encoding-smuggle, invisible-Unicode, tool-abuse, classic jailbreaks.
 >
@@ -144,7 +144,7 @@ It's a REST API that scans any text and returns a confidence score, threat categ
 InjectShield isn't a silver bullet — it's one layer of defense-in-depth. But it's a useful layer most agents lack today.
 
 → https://injectshield.dev
-→ https://github.com/bch1212/promptshield
+→ https://github.com/bch1212/injectshield
 
 #AI #Security #PromptInjection #DeveloperTools
 

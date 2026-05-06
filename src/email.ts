@@ -58,7 +58,7 @@ Free tier: 10,000 requests/month. Upgrade to lift limits and unlock dashboard,
 custom patterns, and webhook alerts: ${publicBase}/pricing
 
 Docs: ${publicBase}/docs
-GitHub (open-source ruleset): https://github.com/bch1212/promptshield
+GitHub (open-source ruleset): https://github.com/bch1212/injectshield
 
 — InjectShield`;
   const html = `<!doctype html><html><body style="font-family:-apple-system,Segoe UI,sans-serif;line-height:1.5;max-width:560px;margin:0 auto;padding:24px;color:#0f172a">
@@ -73,7 +73,7 @@ GitHub (open-source ruleset): https://github.com/bch1212/promptshield
 <p>Free tier: 10,000 requests/month. Upgrade for higher limits, dashboard, custom patterns, and webhook alerts:
 <a href="${publicBase}/pricing">${publicBase}/pricing</a></p>
 <p>Docs: <a href="${publicBase}/docs">${publicBase}/docs</a><br>
-Open-source ruleset: <a href="https://github.com/bch1212/promptshield">github.com/bch1212/promptshield</a></p>
+Open-source ruleset: <a href="https://github.com/bch1212/injectshield">github.com/bch1212/injectshield</a></p>
 <p style="color:#64748b;font-size:12px">InjectShield reduces but does not eliminate prompt-injection risk. Use as one layer of a defense-in-depth strategy.</p>
 </body></html>`;
   return { subject, text, html, to: email };

@@ -1,6 +1,6 @@
 # @injectshield/mcp
 
-**MCP server for [InjectShield](https://github.com/bch1212/promptshield)** — exposes the InjectShield prompt-injection-detection API as MCP tools so any MCP-compatible client (Claude Code, Cursor, Cline, etc.) can scan untrusted text before passing it into another LLM call.
+**MCP server for [InjectShield](https://github.com/bch1212/injectshield)** — exposes the InjectShield prompt-injection-detection API as MCP tools so any MCP-compatible client (Claude Code, Cursor, Cline, etc.) can scan untrusted text before passing it into another LLM call.
 
 ## Tools
 
@@ -66,7 +66,7 @@ Agent: I detected prompt-injection in this page. Working from the
 
 ## Defense in depth
 
-InjectShield reduces but does not eliminate prompt-injection risk. Pair it with system-prompt hardening, tool sandboxing, and output filtering. See the [main repo](https://github.com/bch1212/promptshield) for the full pattern library and a more thorough discussion.
+InjectShield reduces but does not eliminate prompt-injection risk. Pair it with system-prompt hardening, tool sandboxing, and output filtering. See the [main repo](https://github.com/bch1212/injectshield) for the full pattern library and a more thorough discussion.
 
 ## License
 

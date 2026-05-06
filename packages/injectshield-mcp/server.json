@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
-  "name": "io.github.bch1212/promptshield",
+  "name": "io.github.bch1212/injectshield",
   "description": "Prompt-injection firewall for AI agents — scan untrusted text (web pages, files, git commits, user input, tool outputs) before passing it to another LLM call.",
   "repository": {
-    "url": "https://github.com/bch1212/promptshield",
+    "url": "https://github.com/bch1212/injectshield",
     "source": "github",
     "subfolder": "packages/injectshield-mcp"
   },
