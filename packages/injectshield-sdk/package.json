@@ -1,0 +1,53 @@
+{
+  "name": "@injectshield/sdk",
+  "version": "0.1.0",
+  "description": "Official Node/TypeScript SDK for InjectShield — prompt-injection firewall for AI agents.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --experimental-strip-types test/smoke.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "typescript": "^5.4.5"
+  },
+  "keywords": [
+    "prompt-injection",
+    "ai-security",
+    "llm",
+    "guardrails",
+    "claude",
+    "agents",
+    "sdk",
+    "typescript"
+  ],
+  "homepage": "https://github.com/bch1212/injectshield",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bch1212/injectshield.git",
+    "directory": "packages/injectshield-sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/bch1212/injectshield/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -17,3 +17,5 @@
   Cache-Control: public, max-age=0, must-revalidate
 /success
   Cache-Control: public, max-age=0, must-revalidate
+/dashboard
+  Cache-Control: public, max-age=0, must-revalidate
