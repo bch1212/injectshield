@@ -1,0 +1,84 @@
+name: API cert watchdog
+
+# Polls Railway for the api.injectshield.dev custom-domain certificate status.
+# Once it flips to ACTIVE, redeploys Cloudflare Pages with the canonical
+# `https://api.injectshield.dev` baked in as the frontend's API base.
+# Idempotent: if Pages already serves the canonical URL, the workflow is a no-op.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # every 15 minutes
+  workflow_dispatch:
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Railway cert status
+        id: cert
+        env:
+          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          set -e
+          DOMAIN_ID="a4e2f699-255f-4606-a9f1-fa775ab7aa13"
+          PROJECT_ID="ae755b9a-18a5-42ca-8b6a-2f9f826f0d0d"
+          resp=$(curl -sS -m 15 -X POST https://backboard.railway.com/graphql/v2 \
+            -H "authorization: Bearer $RAILWAY_API_TOKEN" \
+            -H "content-type: application/json" \
+            -d "$(jq -nc --arg id "$DOMAIN_ID" --arg p "$PROJECT_ID" \
+              '{query:"query($id:String!,$p:String!){customDomain(id:$id,projectId:$p){status{certificateStatus}}}",variables:{id:$id,p:$p}}')")
+          status=$(echo "$resp" | jq -r '.data.customDomain.status.certificateStatus // "UNKNOWN"')
+          echo "Railway cert status: $status"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+
+      - name: Detect already-flipped frontend
+        id: deployed
+        if: steps.cert.outputs.status == 'CERTIFICATE_STATUS_TYPE_ACTIVE'
+        run: |
+          set -e
+          html=$(curl -sS -m 15 https://www.injectshield.dev/ || true)
+          if echo "$html" | grep -q 'window.INJECTSHIELD_API_BASE = "https://api.injectshield.dev"'; then
+            echo "already=true" >> "$GITHUB_OUTPUT"
+            echo "Frontend already points at api.injectshield.dev — nothing to do."
+          else
+            echo "already=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify api.injectshield.dev TLS
+        if: steps.cert.outputs.status == 'CERTIFICATE_STATUS_TYPE_ACTIVE' && steps.deployed.outputs.already == 'false'
+        run: |
+          # Sanity check: don't flip the frontend if the cert hasn't actually
+          # propagated to the edge (Railway may say ACTIVE before all PoPs
+          # have the cert).
+          curl -sS -m 15 -o /dev/null -w "%{http_code}\n" https://api.injectshield.dev/healthz \
+            | grep -q "^200$" \
+            || (echo "api.injectshield.dev not yet returning 200; will retry next run"; exit 1)
+
+      - name: Stamp Pages with api.injectshield.dev
+        if: steps.cert.outputs.status == 'CERTIFICATE_STATUS_TYPE_ACTIVE' && steps.deployed.outputs.already == 'false'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          API_BASE_URL: https://api.injectshield.dev
+        run: |
+          set -e
+          # Stamp version + API base into the static files (mirrors deploy-pages.sh)
+          VERSION="$(date +%s)"
+          WORK="$(mktemp -d -t injectshield-XXXX)"
+          cp -r public/* "$WORK"/
+          for f in "$WORK"/*.html "$WORK"/js/*.js; do
+            [[ -f "$f" ]] || continue
+            sed -i "s|__VERSION__|$VERSION|g; s|__API_BASE__|$API_BASE_URL|g" "$f" 2>/dev/null || true
+          done
+          npx --yes wrangler pages deploy "$WORK" --project-name=promptshield --branch=main --commit-dirty=true
+
+      - name: Notify Discord (success)
+        if: steps.cert.outputs.status == 'CERTIFICATE_STATUS_TYPE_ACTIVE' && steps.deployed.outputs.already == 'false'
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          curl -sS -X POST "$DISCORD_WEBHOOK_URL" \
+            -H "content-type: application/json" \
+            -d '{"content":"✅ **api.injectshield.dev cert ACTIVE** — frontend now pointed at the canonical custom domain. Watchdog cron auto-flipped Pages."}'
