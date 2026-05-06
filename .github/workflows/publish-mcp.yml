@@ -27,8 +27,10 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install + build
+        # npm install (not npm ci) because package-lock.json is gitignored at the
+        # repo level (see scripts/push-github.mjs IGNORE rules).
         run: |
-          npm ci
+          npm install --no-audit --no-fund
           npm run build
 
       - name: Publish to npm
