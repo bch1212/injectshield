@@ -14,10 +14,12 @@ const BRANCH = "main";
 
 const ROOT = path.resolve(process.cwd());
 const IGNORE = [
-  /^node_modules\//, /^dist\//, /^\.env/, /^\.deploy-secrets/,
+  // Match node_modules / dist anywhere in the tree, not just at root.
+  /(^|\/)node_modules\//, /(^|\/)dist\//,
+  /^\.env/, /^\.deploy-secrets/,
   /^\.stripe-prices\.env$/, /^\.railway-deploy\.json/,
-  /\.log$/, /^\.DS_Store$/, /^_dbg\.mjs$/,
-  /^package-lock\.json$/, /^\.git\//,
+  /\.log$/, /(^|\/)\.DS_Store$/, /^_dbg\.mjs$/,
+  /(^|\/)package-lock\.json$/, /^\.git\//,
 ];
 
 function shouldIgnore(rel) {

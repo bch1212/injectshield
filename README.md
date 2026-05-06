@@ -14,6 +14,17 @@ In May 2026 a viral HN thread demonstrated that a single git commit message coul
 
 PromptShield is one layer of a defense-in-depth strategy. It's not a silver bullet. Use it alongside system-prompt hardening, tool sandboxing, and output filtering.
 
+## Install as an MCP (Claude Code, Cursor, Cline, ...)
+
+PromptShield ships a native MCP server at [`@promptshield/mcp`](./packages/promptshield-mcp). Once installed, your agent has three new tools — `scan`, `scan_url`, `patterns` — for input-side defense without writing any glue code.
+
+```bash
+# Claude Code:
+claude mcp add promptshield --env PROMPTSHIELD_API_KEY=ps_live_… -- npx -y @promptshield/mcp
+```
+
+For Cursor / Cline / other MCP clients, see [`packages/promptshield-mcp/README.md`](./packages/promptshield-mcp/README.md).
+
 ## Quick start
 
 ```bash

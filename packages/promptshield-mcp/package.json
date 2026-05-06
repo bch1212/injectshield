@@ -1,0 +1,52 @@
+{
+  "name": "@promptshield/mcp",
+  "version": "0.1.0",
+  "description": "MCP server for PromptShield — prompt-injection firewall for AI agents.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "promptshield-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && chmod +x dist/index.js",
+    "dev": "tsx src/index.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "tsx": "^4.11.0",
+    "typescript": "^5.4.5"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "prompt-injection",
+    "ai-security",
+    "llm",
+    "claude",
+    "agent",
+    "guardrails"
+  ],
+  "homepage": "https://github.com/bch1212/promptshield",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bch1212/promptshield.git",
+    "directory": "packages/promptshield-mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/bch1212/promptshield/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
