@@ -1,4 +1,4 @@
-name: Publish @modelwatch/mcp (one-shot)
+name: Publish modelwatch-mcp (one-shot)
 
 on:
   workflow_dispatch:
@@ -10,30 +10,30 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - name: Clone modelwatch
-        run: git clone --depth 1 https://github.com/bch1212/modelwatch.git mw
+      - run: git clone --depth 1 https://github.com/bch1212/modelwatch.git mw
 
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Install + build
+      - name: Build
         working-directory: mw/mcp-server
         run: |
           npm install --no-audit --no-fund
           npm run build
 
-      - name: Publish to npm
+      - name: Publish
         working-directory: mw/mcp-server
-        run: npm publish --provenance --access public
+        # Skip --provenance (cross-repo publish fails the attestation repo check).
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Wait for npm to index
         run: |
           for i in $(seq 1 12); do
-            ver=$(curl -sS "https://registry.npmjs.org/@modelwatch/mcp" | jq -r "\".dist-tags\".latest // empty")
+            ver=$(curl -sS "https://registry.npmjs.org/modelwatch-mcp" | jq -r ".\"dist-tags\".latest // empty")
             if [ -n "$ver" ]; then echo "indexed: $ver"; exit 0; fi
             sleep 5
           done
